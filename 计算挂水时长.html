@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>静脉注射时长计算</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            text-align: center;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        input {
+            padding: 10px;
+            margin: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            width: 200px;
+        }
+        button {
+            padding: 10px 20px;
+            margin-top: 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007BFF;
+            color: white;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>静脉注射时长计算</h2>
+        
+        <input type="number" id="total-volume" placeholder="药液总量 (mL)" required><br>
+        <input type="number" id="drip-rate" placeholder="滴速 (滴/秒)" required><br>
+        <input type="number" id="drip-factor" placeholder="滴系数 (滴/mL)" value="10" required><br>
+        
+        <button onclick="calculateDuration()">计算时长</button>
+        
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function calculateDuration() {
+            const totalVolume = parseFloat(document.getElementById('total-volume').value);
+            const dripRate = parseFloat(document.getElementById('drip-rate').value);
+            const dripFactor = parseFloat(document.getElementById('drip-factor').value);
+            
+            if (totalVolume > 0 && dripRate > 0 && dripFactor > 0) {
+                const durationInSeconds = (totalVolume * dripFactor) / dripRate;
+                const hours = Math.floor(durationInSeconds / 3600);
+                const minutes = Math.floor((durationInSeconds % 3600) / 60);
+                
+                document.getElementById('result').innerText = `静脉注射时长：${hours} 小时 ${minutes} 分钟`;
+            } else {
+                document.getElementById('result').innerText = '请输入有效的数值';
+            }
+        }
+    </script>
+</body>
+</html>
